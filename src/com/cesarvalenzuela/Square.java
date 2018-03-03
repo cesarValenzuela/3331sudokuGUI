@@ -9,4 +9,9 @@ package com.cesarvalenzuela;
  * T.A:
  */
 public class Square {
+    public Square() {
+    }
+    public Square(int x, int y){
+
+    }
 }
