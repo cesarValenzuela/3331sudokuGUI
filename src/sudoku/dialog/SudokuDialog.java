@@ -1,21 +1,10 @@
 package sudoku.dialog;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.Insets;
-import java.net.URL;
-
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-
 import sudoku.model.Board;
+
+import javax.swing.*;
+import java.awt.*;
+import java.net.URL;
 
 /**
  * A dialog template for playing simple Sudoku games.
@@ -67,6 +56,7 @@ public class SudokuDialog extends JFrame {
     private void boardClicked(int x, int y) {
         // WRITE YOUR CODE HERE ...
         //
+
     	showMessage(String.format("Board clicked: x = %d, y = %d",  x, y));
     }
     
@@ -90,6 +80,7 @@ public class SudokuDialog extends JFrame {
     private void newClicked(int size) {
         // WRITE YOUR CODE HERE ...
         //
+
         showMessage("New clicked: " + size);
     }
 
