@@ -87,6 +87,7 @@ public class BoardPanel extends JPanel {
 
         // WRITE YOUR CODE HERE ...
         // i.e., draw grid and squares.
+        // adapted from // adapted from https://www.leepoint.net/GUI/examples/sudoku/ex-sudoku-v3.html
         g.setColor(Color.BLACK);
         for (int i = 0; i <= board.size ; i++) {
             int line = i * squareSize;
@@ -110,6 +111,7 @@ public class BoardPanel extends JPanel {
         }
 
         // TEXT
+        // adapted from // adapted from https://www.leepoint.net/GUI/examples/sudoku/ex-sudoku-v3.html
         g.getFont();
         for (int i = 0; i < board.size ; i++) {
             int ydis = (i + 1) * squareSize - 10;
