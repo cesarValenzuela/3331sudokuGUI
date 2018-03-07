@@ -28,6 +28,10 @@ public class Square {
         return y;
     }
 
+    public void clear(){
+        this.value = null;
+    }
+
     public String toString(){
         return " " + value + " ";
     }

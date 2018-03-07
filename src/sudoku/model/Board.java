@@ -34,12 +34,6 @@ public class Board {
     	return size;
     }
 
-    // WRITE YOUR CODE HERE ..
-//    /** Return the square at the given, 0-based column/row indexes. */
-//    public Square getSquare(int x, int y) {
-//        return squares.get(x * size + y); // stored in column major order
-//    }
-
     // or a slow but more robust version:
     public Square getSquare(int x, int y) {
         for (Square s: squares) {
@@ -57,7 +51,6 @@ public class Board {
 
     // here's a benefit of using a collection, not a 2-d array; no indexes!
     public void clear() {
-        //squares.forEach(s -> s.clear()); // for (Square s: squares) { s.clear(); }
-        squares.clear();
+        squares.forEach(s -> s.clear()); // for (Square s: squares) { s.clear(); }
     }
 }

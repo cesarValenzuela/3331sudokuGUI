@@ -48,6 +48,18 @@ public class SudokuDialog extends JFrame {
         //setResizable(false);
     }
 
+    public SudokuDialog(Dimension dim, int size){
+        super("Sudoku");
+        setSize(dim);
+        board = new Board(size);
+        boardPanel = new BoardPanel(board, this::boardClicked);
+        configureUI();
+        //setLocationRelativeTo(null);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setVisible(true);
+        //setResizable(false);
+    }
+
     /**
      * Callback to be invoked when a square of the board is clicked.
      * @param x 0-based row index of the clicked square.
@@ -69,6 +81,7 @@ public class SudokuDialog extends JFrame {
     private void numberClicked(int number) {
         // WRITE YOUR CODE HERE ...
         //
+
         showMessage("Number clicked: " + number);
     }
     
@@ -81,7 +94,18 @@ public class SudokuDialog extends JFrame {
      */
     private void newClicked(int size) {
         // WRITE YOUR CODE HERE ...
-        //
+        // IF size does not match board size > dialog and make new board
+        // IF size equals board size -> just clear.
+        if (size != board.size){
+            JOptionPane.showConfirmDialog(this,"Start a new game?");
+            this.dispose();
+            new SudokuDialog(DEFAULT_SIZE, size);
+
+        } else {
+            board.clear();
+            repaint();
+        }
+
 
         showMessage("New clicked: " + size);
     }
