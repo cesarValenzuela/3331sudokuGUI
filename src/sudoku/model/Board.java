@@ -8,6 +8,9 @@ import java.util.List;
 
 /** An abstraction of Sudoku puzzle. */
 public class Board {
+//    public static void main(String[] args) {
+//        Board b = new Board(9);
+//    }
 
     /** Size of this board (number of columns/rows). */
     public final int size;
@@ -18,12 +21,11 @@ public class Board {
     /** Create a new board of the given size. */
     public Board(int size) {
         this.size = size;
-        squares = null;
+        this.squares = new ArrayList<>(size * size);
         // WRITE YOUR CODE HERE ...
-        List<Square> squares = new ArrayList<>(size * size);
         for (int x = 0; x < size; x++) { // store in column-major
             for (int y = 0; y < size; y++) {
-                squares.add(new Square(x, y));
+                this.squares.add(new Square(x, y));
             }
         }
     }
@@ -33,20 +35,20 @@ public class Board {
     }
 
     // WRITE YOUR CODE HERE ..
-    /** Return the square at the given, 0-based column/row indexes. */
-    public Square getSquare(int x, int y) {
-        return squares.get(x * size + y); // stored in column major order
-    }
+//    /** Return the square at the given, 0-based column/row indexes. */
+//    public Square getSquare(int x, int y) {
+//        return squares.get(x * size + y); // stored in column major order
+//    }
 
     // or a slow but more robust version:
-//    public Square getSquare(int x, int y) {
-//        for (Square s: squares) {
-//            if (s.getX() == x && s.getY() == y) {
-//                return s;
-//            }
-//        }
-//        return null;
-//    }
+    public Square getSquare(int x, int y) {
+        for (Square s: squares) {
+            if (s.getX() == x && s.getY() == y) {
+                return s;
+            }
+        }
+        return null;
+    }
 
     /** Return an unmodifiable list of all the squares of this board. */
     public List<Square> squares() {

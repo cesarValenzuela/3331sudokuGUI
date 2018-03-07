@@ -9,9 +9,26 @@ package com.cesarvalenzuela;
  * T.A:
  */
 public class Square {
-    public Square() {
-    }
-    public Square(int x, int y){
+    public Integer value;
 
+    public int x;
+
+    public int y;
+
+    public Square(int x, int y){
+        this.x = x;
+        this.y = y;
+        this.value = null;
+    }
+
+    public int getX(){
+        return x;
+    }
+    public int getY(){
+        return y;
+    }
+
+    public String toString(){
+        return " " + value + " ";
     }
 }

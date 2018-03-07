@@ -56,7 +56,9 @@ public class SudokuDialog extends JFrame {
     private void boardClicked(int x, int y) {
         // WRITE YOUR CODE HERE ...
         //
-
+//        board.getSquare(x,y);
+        board.getSquare(x,y).value = 5;
+        repaint();
     	showMessage(String.format("Board clicked: x = %d, y = %d",  x, y));
     }
     
@@ -156,5 +158,6 @@ public class SudokuDialog extends JFrame {
 
     public static void main(String[] args) {
         new SudokuDialog();
+
     }
 }
