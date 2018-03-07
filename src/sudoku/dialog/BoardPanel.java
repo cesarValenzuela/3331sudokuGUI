@@ -116,12 +116,14 @@ public class BoardPanel extends JPanel {
         for (int i = 0; i < board.size ; i++) {
             int ydis = (i + 1) * squareSize - 10;
             for (int j = 0; j < board.size ; j++) {
-                if(board.getSquare(j,i).value != null){
+                if(board.getSquare(j,i).value != null && board.getSquare(j,i).value != 0){
                     int xdisp = j * squareSize + 7;
                     g.drawString(" " + board.getSquare(j,i).value, xdisp, ydis);
                 }
             }
         }
+
+
     }
 
 }

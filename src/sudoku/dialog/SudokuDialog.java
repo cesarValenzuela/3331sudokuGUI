@@ -4,6 +4,9 @@ import sudoku.model.Board;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.MouseAdapter;
 import java.net.URL;
 
 /**
@@ -68,8 +71,8 @@ public class SudokuDialog extends JFrame {
     private void boardClicked(int x, int y) {
         // WRITE YOUR CODE HERE ...
         //
-//        board.getSquare(x,y);
-        board.getSquare(x,y).value = 5;
+        board.combine(x,y);
+
         repaint();
     	showMessage(String.format("Board clicked: x = %d, y = %d",  x, y));
     }
@@ -81,7 +84,7 @@ public class SudokuDialog extends JFrame {
     private void numberClicked(int number) {
         // WRITE YOUR CODE HERE ...
         //
-
+        board.storeNum(number);
         showMessage("Number clicked: " + number);
     }
     
@@ -159,7 +162,7 @@ public class SudokuDialog extends JFrame {
             JButton button = new JButton(number == 0 ? "X" : String.valueOf(number));
             button.setFocusPainted(false);
             button.setMargin(new Insets(0,2,0,2));
-            button.addActionListener(e -> numberClicked(number));
+            button.addActionListener((ActionEvent e) -> numberClicked(number));
     		numberButtons.add(button);
     	}
     	numberButtons.setAlignmentX(LEFT_ALIGNMENT);

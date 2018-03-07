@@ -1,6 +1,7 @@
 package sudoku.model;
 
 import com.cesarvalenzuela.Square;
+import sudoku.dialog.SudokuDialog;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8,9 +9,6 @@ import java.util.List;
 
 /** An abstraction of Sudoku puzzle. */
 public class Board {
-//    public static void main(String[] args) {
-//        Board b = new Board(9);
-//    }
 
     /** Size of this board (number of columns/rows). */
     public final int size;
@@ -18,9 +16,13 @@ public class Board {
     /** Squares of this board. */
     private final List<Square> squares;
 
+    /** Current number to be inserted */
+    public Integer numChosen;
+
     /** Create a new board of the given size. */
     public Board(int size) {
         this.size = size;
+        this.numChosen = null;
         this.squares = new ArrayList<>(size * size);
         // WRITE YOUR CODE HERE ...
         for (int x = 0; x < size; x++) { // store in column-major
@@ -42,6 +44,18 @@ public class Board {
             }
         }
         return null;
+    }
+
+    public void storeNum(int number){
+        this.numChosen = number;
+    }
+
+    public void combine(int x, int y){
+        Integer number = null;
+        number = this.numChosen;
+        if (number != null){
+            getSquare(x,y).value = this.numChosen;
+        }
     }
 
     /** Return an unmodifiable list of all the squares of this board. */
