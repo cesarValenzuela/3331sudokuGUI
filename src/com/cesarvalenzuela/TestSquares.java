@@ -15,10 +15,6 @@ import java.util.Arrays;
 public class TestSquares {
     public static void main(String[] args) {
         Board tBoard = new Board(9);
-        for (Square s:
-             ) {
-            
-        }
     }
 
     public boolean checkSudokuStatus(int[][] grid){
