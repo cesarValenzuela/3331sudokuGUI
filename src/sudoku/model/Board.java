@@ -1,8 +1,5 @@
 package sudoku.model;
 
-import com.cesarvalenzuela.Square;
-import sudoku.dialog.SudokuDialog;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -66,5 +63,34 @@ public class Board {
     // here's a benefit of using a collection, not a 2-d array; no indexes!
     public void clear() {
         squares.forEach(s -> s.clear()); // for (Square s: squares) { s.clear(); }
+    }
+
+    public class Square{
+        public Integer value;
+
+        public int x;
+
+        public int y;
+
+        public Square(int x, int y){
+            this.x = x;
+            this.y = y;
+            this.value = null;
+        }
+
+        public int getX(){
+            return x;
+        }
+        public int getY(){
+            return y;
+        }
+
+        public void clear(){
+            this.value = null;
+        }
+
+        public String toString(){
+            return " " + value + " ";
+        }
     }
 }

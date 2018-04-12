@@ -5,8 +5,7 @@ import sudoku.model.Board;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.FocusListener;
-import java.awt.event.MouseAdapter;
+import java.awt.event.KeyEvent;
 import java.net.URL;
 
 /**
@@ -51,6 +50,7 @@ public class SudokuDialog extends JFrame {
         //setResizable(false);
     }
 
+    /** Modified Constructor for creating a new game from buttons */
     public SudokuDialog(Dimension dim, int size){
         super("Sudoku");
         setSize(dim);
@@ -125,11 +125,19 @@ public class SudokuDialog extends JFrame {
     private void configureUI() {
         setIconImage(createImageIcon("sudoku.png").getImage());
         setLayout(new BorderLayout());
-        
-        JPanel buttons = makeControlPanel();
+        setJMenuBar(getJMenuBar());
+
+        // Panel combining numbers and toolbar
+        JPanel northPanel = new JPanel(new GridLayout(2, 1));
+
+        JPanel buttons = new JPanel();
         // boarder: top, left, bottom, right
         buttons.setBorder(BorderFactory.createEmptyBorder(10,16,0,16));
-        add(buttons, BorderLayout.NORTH);
+        northPanel.add(createToolBar());
+        northPanel.add(makeControlPanel());
+
+        add(northPanel, BorderLayout.NORTH);
+
         
         JPanel board = new JPanel();
         board.setBorder(BorderFactory.createEmptyBorder(10,16,0,16));
@@ -143,17 +151,18 @@ public class SudokuDialog extends JFrame {
       
     /** Create a control panel consisting of new and number buttons. */
     private JPanel makeControlPanel() {
-    	JPanel newButtons = new JPanel(new FlowLayout());
-        JButton new4Button = new JButton("New (4x4)");
-        for (JButton button: new JButton[] { new4Button, new JButton("New (9x9)") }) {
-        	button.setFocusPainted(false);
-            button.addActionListener(e -> {
-                newClicked(e.getSource() == new4Button ? 4 : 9);
-            });
-            newButtons.add(button);
-    	}
-    	newButtons.setAlignmentX(LEFT_ALIGNMENT);
-        
+        //HW2 4x4 and 9x9 buttons
+//    	JPanel newButtons = new JPanel(new FlowLayout());
+//        JButton new4Button = new JButton("New (4x4)");
+//        for (JButton button: new JButton[] { new4Button, new JButton("New (9x9)") }) {
+//        	button.setFocusPainted(false);
+//            button.addActionListener(e -> {
+//                newClicked(e.getSource() == new4Button ? 4 : 9);
+//            });
+//            newButtons.add(button);
+//    	}
+//    	newButtons.setAlignmentX(LEFT_ALIGNMENT);
+
     	// buttons labeled 1, 2, ..., 9, and X.
     	JPanel numberButtons = new JPanel(new FlowLayout());
     	int maxNumber = board.size() + 1;
@@ -169,9 +178,39 @@ public class SudokuDialog extends JFrame {
 
     	JPanel content = new JPanel();
     	content.setLayout(new BoxLayout(content, BoxLayout.PAGE_AXIS));
-        content.add(newButtons);
+        //content.add(newButtons);
         content.add(numberButtons);
         return content;
+    }
+
+    public JToolBar createToolBar(){
+
+        JToolBar toolBar = new JToolBar("Sudoku");
+
+        JButton button = new JButton(createImageIcon("play.png"));
+//        button.addActionListener();
+        button.setToolTipText("Play a new game");
+        button.setFocusPainted(false);
+        toolBar.add(button);
+        return toolBar;
+    }
+
+    @Override
+    public JMenuBar getJMenuBar() {
+        JMenuBar menuBar = new JMenuBar();
+
+        JMenu menu = new JMenu("Game");
+        menu.setMnemonic(KeyEvent.VK_G);
+        menu.getAccessibleContext().setAccessibleDescription("Game menu");
+        menuBar.add(menu);
+
+        JMenuItem menuItem = new JMenuItem("New Game", KeyEvent.VK_N);
+        menuItem.setIcon(createImageIcon("play.png"));
+        menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.ALT_MASK));
+        menuItem.getAccessibleContext().setAccessibleDescription("Play a new game");
+//        menuItem.addActionListener();
+        menu.add(menuItem);
+        return menuBar;
     }
 
     /** Create an image icon from the given image file. */
