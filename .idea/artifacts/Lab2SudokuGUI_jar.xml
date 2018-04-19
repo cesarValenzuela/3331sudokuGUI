@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Lab2SudokuGUI:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Lab2SudokuGUI_jar</output-path>
+    <root id="archive" name="Lab2SudokuGUI.jar">
+      <element id="module-output" name="Lab2SudokuGUI" />
+    </root>
+  </artifact>
+</component>
