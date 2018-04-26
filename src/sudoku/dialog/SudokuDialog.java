@@ -99,7 +99,7 @@ public class SudokuDialog extends JFrame {
         // WRITE YOUR CODE HERE ...
         // IF size does not match board size > dialog and make new board
         // IF size equals board size -> just clear.
-        if (size != board.size){
+        if (size == board.size){
             JOptionPane.showConfirmDialog(this,"Start a new game?");
             this.dispose();
             new SudokuDialog(DEFAULT_SIZE, size);
@@ -188,10 +188,22 @@ public class SudokuDialog extends JFrame {
         JToolBar toolBar = new JToolBar("Sudoku");
 
         JButton button = new JButton(createImageIcon("play.png"));
-//        button.addActionListener();
+        JButton button2 = new JButton(createImageIcon("solve.png"));
+
+        button.addActionListener(e -> {
+            newClicked(9);
+        });
         button.setToolTipText("Play a new game");
         button.setFocusPainted(false);
+
+//        button2.addActionListener(e -> {
+//            newClicked(9);
+//        });
+        button2.setToolTipText("Solve the puzzle");
+        button2.setFocusPainted(false);
+
         toolBar.add(button);
+        toolBar.add(button2);
         return toolBar;
     }
 
@@ -204,12 +216,22 @@ public class SudokuDialog extends JFrame {
         menu.getAccessibleContext().setAccessibleDescription("Game menu");
         menuBar.add(menu);
 
+
         JMenuItem menuItem = new JMenuItem("New Game", KeyEvent.VK_N);
+        JMenuItem menuItem2 = new JMenuItem("Solve", KeyEvent.VK_N);
+
         menuItem.setIcon(createImageIcon("play.png"));
         menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.ALT_MASK));
         menuItem.getAccessibleContext().setAccessibleDescription("Play a new game");
-//        menuItem.addActionListener();
+        menuItem2.setIcon(createImageIcon("solve.png"));
+        menuItem2.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.ALT_MASK));
+        menuItem2.getAccessibleContext().setAccessibleDescription("Solve the puzzle.");
+        menuItem.addActionListener(e -> {
+            newClicked(9);
+        });
+//        menuItem2.addActionListener();
         menu.add(menuItem);
+        menu.add(menuItem2);
         return menuBar;
     }
 
