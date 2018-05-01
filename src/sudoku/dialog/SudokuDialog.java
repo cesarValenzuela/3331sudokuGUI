@@ -183,7 +183,8 @@ public class SudokuDialog extends JFrame {
         return content;
     }
 
-    public JToolBar createToolBar(){
+
+    protected JToolBar createToolBar(){
 
         JToolBar toolBar = new JToolBar("Sudoku");
 
@@ -231,11 +232,12 @@ public class SudokuDialog extends JFrame {
 //        menuItem2.addActionListener();
         menu.add(menuItem);
         menu.add(menuItem2);
+
         return menuBar;
     }
 
     /** Create an image icon from the given image file. */
-    private ImageIcon createImageIcon(String filename) {
+    public ImageIcon createImageIcon(String filename) {
         URL imageUrl = getClass().getResource(IMAGE_DIR + filename);
         if (imageUrl != null) {
             return new ImageIcon(imageUrl);

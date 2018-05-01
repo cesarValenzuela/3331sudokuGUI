@@ -5,19 +5,29 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-/** An abstraction of Sudoku puzzle. */
+/**
+ * An abstraction of Sudoku puzzle.
+ */
 public class Board {
 
-    /** Size of this board (number of columns/rows). */
+    /**
+     * Size of this board (number of columns/rows).
+     */
     public final int size;
 
-    /** Squares of this board. */
+    /**
+     * Squares of this board.
+     */
     private final List<Square> squares;
 
-    /** Current number to be inserted */
+    /**
+     * Current number to be inserted
+     */
     public Integer numChosen;
 
-    /** Create a new board of the given size. */
+    /**
+     * Create a new board of the given size.
+     */
     public Board(int size) {
         this.size = size;
         this.numChosen = null;
@@ -30,13 +40,16 @@ public class Board {
         }
         randomize();
     }
-    /** Return the size of this board. */
+
+    /**
+     * Return the size of this board.
+     */
     public int size() {
-    	return size;
+        return size;
     }
 
-    public Square getSquare(int x, int y){
-        return squares.get(x*size+y);
+    public Square getSquare(int x, int y) {
+        return squares.get(x * size + y);
     }
 
     // or a slow but more robust version:
@@ -49,19 +62,21 @@ public class Board {
 //        return null;
 //    }
 
-    public void storeNum(int number){
+    public void storeNum(int number) {
         this.numChosen = number;
     }
 
-    public void combine(int x, int y){
+    public void combine(int x, int y) {
         Integer number = null;
         number = this.numChosen;
-        if (number != null){
-            getSquare(x,y).value = this.numChosen;
+        if (number != null) {
+            getSquare(x, y).value = this.numChosen;
         }
     }
 
-    /** Return an unmodifiable list of all the squares of this board. */
+    /**
+     * Return an unmodifiable list of all the squares of this board.
+     */
     public List<Square> squares() {
         return Collections.unmodifiableList(squares);
     }
@@ -70,59 +85,68 @@ public class Board {
         squares.forEach(s -> s.clear()); // for (Square s: squares) { s.clear(); }
     }
 
-    public void randomize(){
-       double startNum;
+    public void randomize() {
+        double startNum;
         int[][] sBoard = new int[this.size][this.size];
         Random rand = new Random();
 
-        for (int r = 0; r < this.size ; r++) {
+        for (int r = 0; r < this.size; r++) {
             startNum = (Math.sqrt(this.size)) * (r % (Math.sqrt(this.size))) + (r / (Math.sqrt(this.size)));
-            for (int c = 0; c < this.size ; c++) {
+            for (int c = 0; c < this.size; c++) {
                 sBoard[r][c] = (int) (((startNum + c) % this.size) + 1);
             }
         }
 
-        for (int row = 0; row < this.size ; row++) {
-            for (int column = 0; column < this.size ; column++) {
+        for (int row = 0; row < this.size; row++) {
+            for (int column = 0; column < this.size; column++) {
                 getSquare(row, column).value = sBoard[row][column];
             }
         }
 
-        for (int i = 0; i < squares.size()/3 ; i++) {
+        for (int i = 0; i < squares.size() / 3; i++) {
             int randNum = rand.nextInt(80);
             squares.get(randNum).value = null;
         }
     }
 
-
-
-    public void solve(){
+    //TO DO
+    public void solve() {
 
     }
 
-    public class Square{
+
+    public class Square {
         public Integer value;
 
         public int x;
 
         public int y;
 
-        public Square(int x, int y){
+        public Square(int x, int y) {
             this.x = x;
             this.y = y;
             this.value = null;
         }
 
-        public int getX(){
+        public int getX() {
             return x;
         }
-        public int getY(){
+
+        public int getY() {
             return y;
         }
 
-        public void clear(){
+        public void setX(int num){
+            this.x = num;
+        }
+
+        public void setY(int num){
+            this.y = num;
+        }
+
+        public void clear() {
             this.value = null;
         }
 
     }
-}
+}//END BOARD

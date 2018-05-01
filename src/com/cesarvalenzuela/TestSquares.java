@@ -40,6 +40,10 @@ public class TestSquares {
         }
     }
 
+    public void setBoard(Board xBoard){
+
+    }
+
     public int[][] sudokuBuilder(int n){
         double startNum;
         int[][] S = new int[n][n];
