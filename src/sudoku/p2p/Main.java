@@ -21,13 +21,18 @@ public class Main extends SudokuDialog implements NetworkAdapter.MessageListener
     private ImageIcon NETWORK_OFF, NETWORK_ON;
     private JButton networkButton;
     private NetworkAdapter network;
+    private JDialog dialog;
 
     public Main(){
         super();
+        dialog = new NetworkDialog(this);
+        dialog.setVisible(false);
+        dialog.setBounds(400,0,400,400);
+        //configureUI();
     }
+
     @Override
     protected JToolBar createToolBar(){
-
         JToolBar toolBar = super.createToolBar();
         NETWORK_OFF = createImageIcon("wifi-red.png");
         networkButton = new JButton(NETWORK_OFF);
@@ -40,6 +45,7 @@ public class Main extends SudokuDialog implements NetworkAdapter.MessageListener
     }
 
     private void networkButtonClicked(ActionEvent e){
+        dialog.setVisible(true);
         new Thread(()->{
             try{
                 Socket socket = new Socket();
