@@ -5,7 +5,9 @@ import sudoku.p2p.net.NetworkAdapter;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.net.ServerSocket;
 import java.net.Socket;
 
 /**
@@ -44,6 +46,7 @@ public class Main extends SudokuDialog implements NetworkAdapter.MessageListener
         return toolBar;
     }
 
+/////// THIS IS CLIENT CODE //////////////////////////////////////////////////////
     private void networkButtonClicked(ActionEvent e){
         dialog.setVisible(true);
         new Thread(()->{
@@ -55,12 +58,27 @@ public class Main extends SudokuDialog implements NetworkAdapter.MessageListener
         }).start();
     }
 
-    private void pairAsClient(Socket socket){
+    private void pairAsClient(Socket socket) {
         network = new NetworkAdapter(socket);
         network.setMessageListener(this);
         network.writeJoin();
         network.receiveMessages();
     }
+/////// THIS IS CLIENT CODE //////////////////////////////////////////////////////
+
+//    private void networkButtonClicked(ActionEvent ev){
+//        new Thread(() -> {
+//            try {
+//                Socket sock = new Socket();
+////                sock.connect(new ServerSocket());
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        })
+
+    }
+
+
 
 
     @Override
