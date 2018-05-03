@@ -5,9 +5,7 @@ import sudoku.p2p.net.NetworkAdapter;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
-import java.io.IOException;
 import java.net.InetSocketAddress;
-import java.net.ServerSocket;
 import java.net.Socket;
 
 /**
@@ -76,7 +74,7 @@ public class Main extends SudokuDialog implements NetworkAdapter.MessageListener
 //            }
 //        })
 
-    }
+    //}
 
 
 
