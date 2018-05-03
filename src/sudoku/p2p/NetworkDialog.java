@@ -2,6 +2,10 @@ package sudoku.p2p;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.net.InetSocketAddress;
+import java.net.Socket;
 
 /**
  * Author: Cesar Valenzuela
@@ -16,6 +20,9 @@ public class NetworkDialog extends JDialog {
     JPanel player;
     JPanel peer;
     JPanel bottom;
+
+    JButton connect;
+    JButton disconnect;
 
     JTextArea eventBox;
     //DialogPanel dialogPanel;
@@ -36,6 +43,7 @@ public class NetworkDialog extends JDialog {
         bottom.setBorder(BorderFactory.createEtchedBorder());
 
         player = makePlayerPanel();
+
         peer = makePeerPanel();
         getContentPane().setLayout(new BorderLayout());
         getContentPane().add(bottom, BorderLayout.SOUTH);
@@ -45,27 +53,20 @@ public class NetworkDialog extends JDialog {
 
     }
 
-//    public NetworkDialog(JFrame owner){
-//        super(owner, true);
-//        setTitle("Connection");
-//
-//        dialogPanel = new DialogPanel();
-//        getContentPane().setLayout(new BorderLayout());
-//        getContentPane().add(dialogPanel, BorderLayout.NORTH);
-//        pack();
-//    }
-
     private JPanel makePlayerPanel(){
         JPanel panel = new JPanel();
 
         JLabel hostName = new JLabel("Host name: ");
-        JTextField nameField = new JTextField();
+        JTextField nameField = new JTextField("localhost");
+        nameField.setEnabled(false);
 
         JLabel ipNumber = new JLabel("IP number: ");
         JTextField ipField = new JTextField();
+        ipField.setEnabled(false);
 
         JLabel portNum = new JLabel("Port number; ");
         JTextField portField = new JTextField();
+        portField.setEnabled(false);
 
         hostName.setBounds(10,10,60,30);
         nameField.setBounds(70,15,270,20);
@@ -91,8 +92,10 @@ public class NetworkDialog extends JDialog {
         JLabel portNum = new JLabel("Port number; ");
         JTextField portField = new JTextField(10);
 
-        JButton connect = new JButton("connect");
-        JButton disconnect = new JButton("disconnect");
+        connect = new JButton("connect");
+
+        disconnect = new JButton("disconnect");
+
 
         panel.setBorder(BorderFactory.createTitledBorder("Peer"));
         panel.setLayout(new GridLayout(3,2,5,5));
@@ -107,101 +110,9 @@ public class NetworkDialog extends JDialog {
 
     }
 
-//    class DialogPanel extends JPanel{
-//        JPanel playerPanel;
-//        JPanel peerPanel;
-//
-//        JLabel hostName;
-//        JTextField nameField;
-//        JLabel ipNumber;
-//        JTextField ipField;
-//        JLabel portNum;
-//        JTextField portField;
-//
-//        JLabel peerName;
-//        JTextField peerField;
-//        JLabel pPortNum;
-//        JTextField pPortField;
-//        JButton connect;
-//        JButton disconnect;
-//
-//        JTextArea textArea;
-//        ButtonGroup buttonGroup;
-//
-//        DialogPanel(){
-//            setLayout(new GridLayout(3,2));
-//            playerPanel = new JPanel();
-//            hostName = new JLabel("Host name/IP: ");
-//            nameField = new JTextField();
-//            hostName.setBounds(10,10,60,30);
-//            nameField.setBounds(70,15,270,20);
-//            ipNumber = new JLabel("IP number: ");
-//            ipField = new JTextField();
-//            portNum = new JLabel("Port number; ");
-//            portField = new JTextField();
-//            playerPanel.add(hostName);
-//            playerPanel.add(nameField);
-//            playerPanel.add(ipNumber);
-//            playerPanel.add(ipField);
-//            playerPanel.add(portNum);
-//            playerPanel.add(portField);
-//            playerPanel.setBorder(BorderFactory.createTitledBorder("Player"));
-//
-//
-//            peerPanel = new JPanel();
-//            peerName = new JLabel("Host name/IP: ");
-//
-//            peerField = new JTextField();
-//            pPortNum = new JLabel("Port number; ");
-//            pPortField = new JTextField();
-//            connect = new JButton("connect");
-//            disconnect = new JButton("disconnect");
-//            peerPanel.add(peerName);
-//            peerPanel.add(peerField);
-//            peerPanel.add(pPortNum);
-//            peerPanel.add(pPortField);
-//            peerPanel.add(connect);
-//            peerPanel.add(disconnect);
-//
-//            buttonGroup = new ButtonGroup();
-//            buttonGroup.add(connect);
-//            buttonGroup.add(disconnect);
-//
-//            textArea = new JTextArea();
-//
-//            add(playerPanel);
-//            add(peerPanel);
-//            add(textArea);
-//            doLayout();
-//        }
-//
-//        public Dimension getPreferredSize(){
-//            return new Dimension(350, 200);
-//        }
-//
-//        @Override
-//        public Dimension getMinimumSize() {
-//            return new Dimension(350, 200);
-//        }
-//
-//        @Override
-//        public void doLayout() {
-//            hostName.setBounds(10,10,60,30);
-//            nameField.setBounds(70,15,270,20);
-//            ipNumber.setBounds(10,10,60,30);
-//            ipField.setBounds(70,15,270,20);
-//            portNum.setBounds(10,10,60,30);
-//            portField.setBounds(70,15,270,20);
-//
-//            peerName.setBounds(10,10,60,30);
-//            peerField.setBounds(70,15,270,20);
-//            pPortNum.setBounds(10,10,60,30);
-//            pPortField.setBounds(70,15,270,20);
-//
-//            playerPanel.setBounds(10,140,330,50);
-//            peerPanel.setBounds(10,140,330,50);
-//
-//
-//        }
-//    }
+    public void addConnectListener(ActionListener listener){
+        connect.addActionListener(listener);
+    }
+
+
 }

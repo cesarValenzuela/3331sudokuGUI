@@ -5,7 +5,10 @@ import sudoku.p2p.net.NetworkAdapter;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.net.ServerSocket;
 import java.net.Socket;
 
 /**
@@ -21,13 +24,18 @@ public class Main extends SudokuDialog implements NetworkAdapter.MessageListener
     private ImageIcon NETWORK_OFF, NETWORK_ON;
     private JButton networkButton;
     private NetworkAdapter network;
-    private JDialog dialog;
+    private NetworkDialog dialog;
 
     public Main(){
         super();
         dialog = new NetworkDialog(this);
+        dialog.addConnectListener(e -> {
+            connectButtonClicked(e);
+
+        });
         dialog.setVisible(false);
         dialog.setBounds(400,0,400,400);
+
         //configureUI();
     }
 
@@ -44,37 +52,43 @@ public class Main extends SudokuDialog implements NetworkAdapter.MessageListener
         return toolBar;
     }
 
-/////// THIS IS CLIENT CODE //////////////////////////////////////////////////////
-    private void networkButtonClicked(ActionEvent e){
-        dialog.setVisible(true);
-        new Thread(()->{
-            try{
-                Socket socket = new Socket();
-                socket.connect(new InetSocketAddress("127.0.0.1", 8000),5000);
-
-            } catch (Exception ex){}
-        }).start();
-    }
-
-    private void pairAsClient(Socket socket) {
+    public void pairAsClient(Socket socket) {
         network = new NetworkAdapter(socket);
         network.setMessageListener(this);
         network.writeJoin();
         network.receiveMessages();
     }
-/////// THIS IS CLIENT CODE //////////////////////////////////////////////////////
 
-//    private void networkButtonClicked(ActionEvent ev){
-//        new Thread(() -> {
-//            try {
-//                Socket sock = new Socket();
-////                sock.connect(new ServerSocket());
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        })
+    public void connectButtonClicked(ActionEvent event){
+        System.out.println("Client Searching...");
+        new Thread(()->{
+            try{
+                Socket socket = new Socket();
+                socket.connect(new InetSocketAddress("127.0.0.1", 8000),5000);
+                pairAsClient(socket);
+            } catch (Exception ex){}
+        }).start();
+    }
 
-    //}
+    private void networkButtonClicked(ActionEvent ev){
+        System.out.println("Server started...");
+        dialog.setVisible(true);
+        new Thread(() -> {
+            try {
+                ServerSocket sock = new ServerSocket(8000);
+                Socket incoming = sock.accept();
+                pairAServer(incoming);
+
+            } catch (Exception e) {}
+        }).start();
+
+    }
+
+    private void pairAServer(Socket socket) {
+        network = new NetworkAdapter(socket);
+        network.setMessageListener(this);
+        network.receiveMessages();
+    }
 
 
 
